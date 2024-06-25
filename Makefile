@@ -1,9 +1,6 @@
-transifex_resource = frontend-template-application
+transifex_resource = frontend-app-skillable
 transifex_langs = "ar,fr,es_419,zh_CN"
 
-transifex_utils = ./node_modules/.bin/transifex-utils.js
-i18n = ./src/i18n
-transifex_input = $(i18n)/transifex_input.json
 tx_url1 = https://www.transifex.com/api/2/project/edx-platform/resource/$(transifex_resource)/translation/en/strings/
 tx_url2 = https://www.transifex.com/api/2/project/edx-platform/resource/$(transifex_resource)/source/
 
@@ -17,21 +14,11 @@ precommit:
 requirements:
 	npm install
 
-i18n.extract:
-	# Pulling display strings from .jsx files into .json files...
-	rm -rf $(transifex_temp)
-	npm run-script i18n_extract
-
-i18n.concat:
-	# Gathering JSON messages into one file...
-	$(transifex_utils) $(transifex_temp) $(transifex_input)
-
-extract_translations: | requirements i18n.extract i18n.concat
+extract_translations: | requirements
 
 # Despite the name, we actually need this target to detect changes in the incoming translated message files as well.
 detect_changed_source_translations:
 	# Checking for changed translations...
-	git diff --exit-code $(i18n)
 
 # Pushes translations to Transifex.  You must run make extract_translations first.
 push_translations:
