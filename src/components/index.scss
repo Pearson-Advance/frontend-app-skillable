@@ -1,3 +1,22 @@
+/* index.scss */
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
 .tableWrapper {
     padding: 10px;
+}
+
+.error-container {
+    text-align: left;
+    padding: 20px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+.instructor-dashboard-button {
+    margin-left: auto;
 }

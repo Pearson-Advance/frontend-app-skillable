@@ -37,6 +37,7 @@
     "@edx/brand": "npm:@edx/brand-openedx@1.1.0",
     "@edx/frontend-platform": "4.5.1",
     "@edx/paragon": "20.45.0",
+    "@fortawesome/fontawesome-free": "^6.5.2",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-brands-svg-icons": "5.15.4",
     "@fortawesome/free-regular-svg-icons": "5.15.4",
