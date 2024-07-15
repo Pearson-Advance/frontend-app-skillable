@@ -1,0 +1,25 @@
+/* LabSummary.scss */
+
+@import '../../variables.scss';
+
+.status-no {
+    color: $status-no-color;
+}
+
+.status-yes {
+    color: $status-yes-color
+}
+
+.status-na {
+    color: $status-na-color;
+}
+
+.breadcrumb-container {
+    padding: 10px 20px 0px;
+}
+
+.link-muted {
+    color: #007394 !important;
+    text-decoration: underline;
+    font-weight: 700; // This makes the font more similar to the mock up
+}

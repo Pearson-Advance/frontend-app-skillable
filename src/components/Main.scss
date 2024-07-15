@@ -1,0 +1,7 @@
+/* Main.scss */
+@import "../variables.scss";
+
+.main-container {
+    background-color: $app-background-color;
+    padding: 10px;
+}

@@ -8,14 +8,14 @@ import {
 import { AppProvider, ErrorPage } from '@edx/frontend-platform/react';
 import ReactDOM from 'react-dom';
 
-import Main from './components';
+import Main from './components/Main';
 import './index.scss';
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider>
       <Container size="xl">
-        <Main />
+        <Main className="class-main" />
       </Container>
     </AppProvider>,
     document.getElementById('root'),
