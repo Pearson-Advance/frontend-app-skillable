@@ -15,8 +15,40 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 30px;
+    margin-left: 10px;
   }
 
 .instructor-dashboard-button {
     margin-left: auto;
+}
+
+.filterWrapper{
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.radio-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: -10px;
+
+    .form-radio {
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+  }
+
+.filter-buttons{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.form-custom-height input{
+    height: 50px;
+}
+
+.pgn__form-control-floating-label-text {
+    position: relative;
+    top: 3px;
 }
