@@ -29,6 +29,7 @@ const LabSummary = ({ anonymousUserId, componentNavigationHandler }) => {
 * @param {number} pageNumber - Consecutive page indentificator of the results to be retrieved.
 */
   const fetchLabsData = async (apiUrl, pageNumber) => {
+    setIsLoading(true);
     try {
       const labsData = [];
       const response = await getAuthenticatedHttpClient().post(`${apiUrl}/?page=${pageNumber}`, { userid: anonymousUserId });
@@ -55,7 +56,7 @@ const LabSummary = ({ anonymousUserId, componentNavigationHandler }) => {
     } catch (error) {
       logError(error);
     } finally {
-      setIsLoading(!isLoading);
+      setIsLoading(false);
     }
   };
 

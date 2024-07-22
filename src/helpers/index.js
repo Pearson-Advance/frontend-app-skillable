@@ -29,10 +29,13 @@ const formatUnixTimestamp = (timeStamp) => {
  */
 const eventManager = (callback) => {
   let isExecuting = false;
-  return async () => {
+  return async (event) => {
+    if (event) {
+      event.preventDefault(); // Prevent the default behavior
+    }
     if (!isExecuting) {
       isExecuting = true;
-      await callback();
+      await callback(event);
       setTimeout(() => {
         isExecuting = false;
       }, 2000); // 2 second delay
