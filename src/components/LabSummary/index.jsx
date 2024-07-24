@@ -10,7 +10,7 @@ import { columns } from './columns';
 import { formatUnixTimestamp } from '../../helpers';
 import { SKILLABLE_URL } from '../../constants';
 
-const LabSummary = ({ anonymousUserId, componentNavigationHandler }) => {
+const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
   const [labs, setLabs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
@@ -32,7 +32,7 @@ const LabSummary = ({ anonymousUserId, componentNavigationHandler }) => {
     setIsLoading(true);
     try {
       const labsData = [];
-      const response = await getAuthenticatedHttpClient().post(`${apiUrl}/?page=${pageNumber}`, { userid: anonymousUserId });
+      const response = await getAuthenticatedHttpClient().post(`${apiUrl}/?page=${pageNumber}`, { userid: rosterStudent.user_id });
       const result = await response.data;
       const laboratories = result.results;
       laboratories.forEach(laboratory => {
@@ -76,6 +76,9 @@ const LabSummary = ({ anonymousUserId, componentNavigationHandler }) => {
           clickHandler={handleBreadcrumbClick}
         />
       </div>
+      <div className="title-container">
+        <h2>{ rosterStudent.username }</h2>
+      </div>
       <Table
         isLoading={isLoading}
         data={labs}
@@ -90,7 +93,7 @@ const LabSummary = ({ anonymousUserId, componentNavigationHandler }) => {
 };
 
 LabSummary.propTypes = {
-  anonymousUserId: PropTypes.string,
+  rosterStudent: PropTypes.objectOf(PropTypes.string),
   componentNavigationHandler: PropTypes.func,
 };
 
