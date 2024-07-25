@@ -8,7 +8,8 @@ const columns = (componentNavigationHandler) => {
    * @param {object} row - the given row from fetched data where the content would be accessed
    */
   const handleUsernameClick = (row) => {
-    componentNavigationHandler(row.original.anonymous_user_id);
+    const student = { user_id: row.original.anonymous_user_id, username: row.original.user };
+    componentNavigationHandler(student);
   };
 
   return [
