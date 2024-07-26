@@ -5,3 +5,17 @@
     background-color: $app-background-color;
     padding: 10px;
 }
+
+.breadcrumb-container {
+    padding: 10px 10px 0px;
+}
+
+.link-muted {
+    color: #007394 !important;
+    text-decoration: underline;
+    font-weight: 700; // This makes the font more similar to the mock up
+}
+
+.title-container {
+    padding-left: 10px;
+}
