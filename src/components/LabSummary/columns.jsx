@@ -1,15 +1,17 @@
 import React from 'react';
 import { Hyperlink } from '@edx/paragon';
 
-const columns = () => {
+const columns = (componentNavigationHandler) => {
   /**
    * Displays the expected component when there is a click on the cell where this method is called
    *
    * @param {object} row - the given row from fetched data where the content would be accessed
    */
   const handleLabClick = (row) => {
-    // TODO: update with expected behavior
-    console.log(row.original.lab_instance_id); // eslint-disable-line no-console
+    componentNavigationHandler(null, {
+      labInstanceId: row.original.lab_instance_id,
+      labProfileName: row.original.lab_profile_name,
+    });
   };
 
   return [

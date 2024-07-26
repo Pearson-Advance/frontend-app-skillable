@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import {
-  Alert,
   Col,
   Form,
   Icon,
 } from '@edx/paragon';
 import { Button } from 'react-paragon-topaz';
 import { Search } from '@edx/paragon/icons';
+import AlertMessage from '../AlertMessage';
 
 import './index.scss';
 import Table from '../Table';
@@ -168,12 +168,9 @@ const ClassRoster = ({ componentNavigationHandler }) => {
         </div>
         {errorMessage && (
           <div className="error-container">
-            <hr />
-            <Alert variant="danger">
-              <Alert.Heading>
-                An error occurred while launching the instructor dashboard. Please
-                find details below:
-              </Alert.Heading>
+            <AlertMessage
+              heading="An error occurred while launching the instructor dashboard. Please find details below:"
+            >
               <ul>
                 <li>
                   <b>Course key: </b>
@@ -186,11 +183,9 @@ const ClassRoster = ({ componentNavigationHandler }) => {
               </ul>
               <hr />
               <p className="mb-0">
-                Please retry and/or contact our support team for assistance in
-                resolving this issue.
+                Please retry and/or contact our support team for assistance in resolving this issue.
               </p>
-            </Alert>
-            <hr />
+            </AlertMessage>
           </div>
         )}
       </div>

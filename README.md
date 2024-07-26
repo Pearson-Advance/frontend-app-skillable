@@ -1,4 +1,4 @@
-# Fronend App Skillable
+# Frontend App Skillable
 ## Introduction
 
 This MFE application for Skillable Project offers an extensive range of features and a user-friendly interface for any given course with the Skillable feature enabled.

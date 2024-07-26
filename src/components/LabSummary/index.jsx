@@ -82,7 +82,7 @@ const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
       <Table
         isLoading={isLoading}
         data={labs}
-        columns={columns()}
+        columns={columns(componentNavigationHandler)}
         emptyMessage="No Labs found."
         pageCount={pageCount}
         currentPage={currentPage}
