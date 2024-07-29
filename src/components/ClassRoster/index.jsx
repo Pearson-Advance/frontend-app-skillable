@@ -32,7 +32,7 @@ const ClassRoster = ({ componentNavigationHandler }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const handlePagination = (targetPage) => setCurrentPage(targetPage);
-  const courseId = window.location.pathname.split('/').filter(Boolean)[3];
+  const courseId = window.location.pathname.split('/').filter(Boolean)[1];
 
   /**
   * Handles button click event to open a URL
