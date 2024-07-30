@@ -30,7 +30,7 @@ Clone this repo into the `/src` folder of your devstack installation, once it ha
 `cd frontend-app-skillable && npm install`
 
 It would place you onto the repository folder and install de dependencies nedeed for the project to run. With that just execute
-`npm start`. There shall be a frontend running in http://localhost:2002/
+`npm start`. There shall be a frontend running in http://localhost:2003/
 
 ## Testing
 - Jest test: `npm test`
