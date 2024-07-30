@@ -43,4 +43,27 @@ const eventManager = (callback) => {
   };
 };
 
-export { eventManager, formatUnixTimestamp };
+/**
+ * Formats a timestamp string to 'MM/dd/yyyy - hh:mm a' format.
+ * If the input is null or invalid, returns 'N/A'.
+ *
+ * @param {string} time - The timestamp string to be formatted.
+ * @returns {string} - The formatted date string or 'N/A' if the input is invalid.
+ */
+const formatTime = (time) => {
+  if (!time || typeof time !== 'string') {
+    return 'N/A';
+  }
+  return new Date(parseInt(time.match(/\d+/)[0], 10))
+    .toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    })
+    .replace(',', ' -');
+};
+
+export { eventManager, formatUnixTimestamp, formatTime };
