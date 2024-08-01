@@ -4,6 +4,8 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Breadcrumb, Spinner } from '@edx/paragon';
 import AlertMessage from '../AlertMessage';
+import LabDetailsCard from '../LabDetailsCard';
+import { formatTime } from '../../helpers';
 import './index.scss';
 import { SKILLABLE_URL } from '../../constants';
 
@@ -86,10 +88,26 @@ const LabDetails = ({
         </div>
       )}
       {!isLoading && labDetails && (
-        // Render the lab details here
-        <div>
-          {/* Render the details of labDetails */}
+      <div className="row">
+        <div className="col-12 col-md-7">
+          <LabDetailsCard
+            details={{
+              labProfileName: labDetails.LabProfileName,
+              userFirstName: labDetails.UserFirstName,
+              userLastName: labDetails.UserLastName,
+              startTime: formatTime(labDetails.StartTime),
+              endTime: formatTime(labDetails.EndTime),
+              state: labDetails.State,
+              completionStatus: labDetails.CompletionStatus,
+              totalRunTime: labDetails.TotalRunTime,
+              examPassed: labDetails.exam_passed ? 'Yes' : 'No',
+            }}
+          />
         </div>
+        <div className="col-12 col-md-5">
+          {/* Useful for further features. */}
+        </div>
+      </div>
       )}
     </div>
   );

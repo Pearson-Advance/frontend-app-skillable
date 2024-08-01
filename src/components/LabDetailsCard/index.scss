@@ -1,0 +1,47 @@
+.lab-details-card {
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+
+  .lab-details {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px 20px 20px;
+  }
+
+  .lab-details-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .lab-details-item {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .lab-details-item strong {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    font-weight: lighter;
+  }
+
+  .lab-details-item span {
+    display: block;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .lab-details-row {
+      flex-wrap: wrap;
+    }
+
+    .lab-details-item {
+      flex: 0 0 50%;
+      padding: 10px 0;
+    }
+  }
