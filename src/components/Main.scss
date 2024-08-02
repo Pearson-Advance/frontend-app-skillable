@@ -11,7 +11,7 @@
 }
 
 .link-muted {
-    color: #007394 !important;
+    color: $hyperlink-color !important;
     text-decoration: underline;
     font-weight: 700; // This makes the font more similar to the mock up
 }

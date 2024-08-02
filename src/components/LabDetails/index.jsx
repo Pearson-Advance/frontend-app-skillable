@@ -8,6 +8,7 @@ import LabDetailsCard from '../LabDetailsCard';
 import { formatTime } from '../../helpers';
 import './index.scss';
 import { SKILLABLE_URL } from '../../constants';
+import JsonViewer from '../JsonViewer';
 
 const LabDetails = ({
   componentNavigationHandler,
@@ -88,24 +89,28 @@ const LabDetails = ({
         </div>
       )}
       {!isLoading && labDetails && (
-      <div className="row">
-        <div className="col-12 col-md-7">
-          <LabDetailsCard
-            details={{
-              labProfileName: labDetails.LabProfileName,
-              userFirstName: labDetails.UserFirstName,
-              userLastName: labDetails.UserLastName,
-              startTime: formatTime(labDetails.StartTime),
-              endTime: formatTime(labDetails.EndTime),
-              state: labDetails.State,
-              completionStatus: labDetails.CompletionStatus,
-              totalRunTime: labDetails.TotalRunTime,
-              examPassed: labDetails.exam_passed ? 'Yes' : 'No',
-            }}
-          />
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-md-7">
+            <LabDetailsCard
+              details={{
+                labProfileName: labDetails.LabProfileName,
+                userFirstName: labDetails.UserFirstName,
+                userLastName: labDetails.UserLastName,
+                startTime: formatTime(labDetails.StartTime),
+                endTime: formatTime(labDetails.EndTime),
+                state: labDetails.State,
+                completionStatus: labDetails.CompletionStatus,
+                totalRunTime: labDetails.TotalRunTime,
+                examPassed: labDetails.exam_passed ? 'Yes' : 'No',
+              }}
+            />
+          </div>
         </div>
-        <div className="col-12 col-md-5">
-          {/* Useful for further features. */}
+        <div className="row">
+          <div className="col-12 col-md-12">
+            <JsonViewer labName={labProfileName} labData={labDetails} />
+          </div>
         </div>
       </div>
       )}

@@ -1,0 +1,10 @@
+@import "../../variables.scss";
+
+.jsoneditor {
+    margin-top: 15px;
+    border-color: $hyperlink-color !important;
+}
+
+.jsoneditor .jsoneditor-menu {
+    background-color: $hyperlink-color !important;
+}
