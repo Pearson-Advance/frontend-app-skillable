@@ -9,7 +9,7 @@ import {
 } from '@edx/paragon';
 import { Button } from 'react-paragon-topaz';
 import { Search } from '@edx/paragon/icons';
-import AlertMessage from '../AlertMessage';
+import DashboardLaunchButton from '../DashboardLaunchButton';
 
 import './index.scss';
 import Table from '../Table';
@@ -18,11 +18,8 @@ import { eventManager } from '../../helpers';
 import { SKILLABLE_URL } from '../../constants';
 
 const ENROLLMENTS_URL = `${process.env.LMS_BASE_URL}/pearson-core/api/v1/course-enrollments`;
-const COURSE_TAB_URL = `${SKILLABLE_URL}/course-tab/api/v1`;
 
 const ClassRoster = ({ componentNavigationHandler }) => {
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [filterErrorMessage, setFilterErrorMessage] = useState(null);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,36 +32,9 @@ const ClassRoster = ({ componentNavigationHandler }) => {
   const courseId = window.location.pathname.split('/').filter(Boolean)[1];
 
   /**
-  * Handles button click event to open a URL
-  */
-  const buttonLaunch = async () => {
-    try {
-      const response = await getAuthenticatedHttpClient().post(`${COURSE_TAB_URL}/instructor-dashboard-launch/`, {
-        class_id: courseId,
-      });
-      const { url, error: responseError } = response.data;
-
-      if (url) {
-        window.open(url, '_blank', 'noopener,noreferrer');
-      } else {
-        setErrorMessage({
-          courseKey: courseId,
-          message: responseError,
-        });
-      }
-    } catch (error) {
-      logError('Error fetching URL:', error);
-      setErrorMessage({
-        courseKey: courseId,
-        message: 'An unexpected error occurred. Please try again later.',
-      });
-    }
-  };
-
-  /**
   * Consumes course-enrollments API from pearson-core plugin of Devstack
   *
-  * @param {string} apiUrl - URL of the course-enrollment API either base URL or one given by its pagination service
+  * @param {string} apiUrl - URL of the course-enrollment API either base URL or one given por su pagination service
   * @param {number} pageNumber - Consecutive page indentification of the results to be retrieved.
   * @param {obj} filter - string extra field to populate the datatable with filtered data.
   */
@@ -114,7 +84,7 @@ const ClassRoster = ({ componentNavigationHandler }) => {
   /**
    * Handles the reset action of the filter form.
    *
-   * This function is called when the reset button is clicked. It clears the filter
+   * This function is called cuando the reset button is clicked. It clears the filter
    * value and error message, and calls `fetchUsersData` to fetch and update the
    * data table with the default (unfiltered) results.
    */
@@ -124,27 +94,8 @@ const ClassRoster = ({ componentNavigationHandler }) => {
     await fetchUsersData(ENROLLMENTS_URL, currentPage);
   };
 
-  const openSkillableDashboard = eventManager(buttonLaunch);
   const handleFilterSubmit = eventManager(handlerFilterSubmit);
   const handleFilterReset = eventManager(handlerFilterReset);
-
-  /**
-  * Consumes isccx API to check if the course is a CCX.
-  */
-  useEffect(() => {
-    const checkCcxCourse = async () => {
-      try {
-        const response = await getAuthenticatedHttpClient().post(`${COURSE_TAB_URL}/is-ccx-course/`, {
-          class_id: courseId,
-        });
-        setIsButtonVisible(response.data.is_ccx_course);
-      } catch (error) {
-        logError('Error fetching course status:', error);
-      }
-    };
-
-    checkCcxCourse();
-  }, [courseId]);
 
   useEffect(() => {
     fetchUsersData(ENROLLMENTS_URL, currentPage);
@@ -152,43 +103,7 @@ const ClassRoster = ({ componentNavigationHandler }) => {
 
   return (
     <div>
-      <div>
-        <div className="main-header">
-          <h2>Class Roster</h2>
-          {isButtonVisible && (
-            <Button
-              className="instructor-dashboard-button"
-              variant="outline-primary"
-              onClick={openSkillableDashboard}
-            >
-              <i className="fa-solid fa-arrow-up-right-from-square" />
-              &nbsp; Go To Instructor Dashboard
-            </Button>
-          )}
-        </div>
-        {errorMessage && (
-          <div className="error-container">
-            <AlertMessage
-              heading="An error occurred while launching the instructor dashboard. Please find details below:"
-            >
-              <ul>
-                <li>
-                  <b>Course key: </b>
-                  {errorMessage.courseKey}
-                </li>
-                <li>
-                  <b>Error message: </b>
-                  {errorMessage.message}
-                </li>
-              </ul>
-              <hr />
-              <p className="mb-0">
-                Please retry and/or contact our support team for assistance in resolving this issue.
-              </p>
-            </AlertMessage>
-          </div>
-        )}
-      </div>
+      <DashboardLaunchButton courseId={courseId} title="Class Roster" />
       <div className="filterWrapper">
         <Form onSubmit={handleFilterSubmit}>
           <Form.Group as={Col} controlId="formGridParam">
