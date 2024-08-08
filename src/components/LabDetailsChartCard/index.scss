@@ -1,0 +1,32 @@
+.lab-details-chard-card {
+    margin-top: 20px;
+    max-width: 98%;
+    .lab-details-row{
+        margin-bottom: 0px;
+    }
+    .lab-details {
+      .chart-card-row {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        &.centered {
+          .lab-details-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+      }
+
+      .lab-details-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        strong {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
