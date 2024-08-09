@@ -1,20 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Form, Icon } from '@edx/paragon';
-import { Button } from 'react-paragon-topaz';
+import {
+  Button,
+  Col,
+  Form,
+  Icon,
+} from '@edx/paragon';
 import { Search } from '@edx/paragon/icons';
-import './index.scss';
 
-const TableFilter = ({
-  filterValue,
-  selectedParam,
-  filterErrorMessage,
-  handleFilterChange,
-  handleParamChange,
-  handleFilterSubmit,
-  handleFilterReset,
-}) => (
-  <div className="filterWrapper">
+const TableFilter = ({ onFilterSubmit, error }) => {
+  const [filterValue, setFilterValue] = useState('');
+  const [selectedParam, setSelectedParam] = useState('username');
+  const [filterErrorMessage, setFilterErrorMessage] = useState(null);
+
+  const handleFilterChange = (e) => setFilterValue(e.target.value);
+  const handleParamChange = (e) => setSelectedParam(e.target.value);
+
+  /**
+   * Handles the submission of the filter form.
+   *
+   * This function is called when the filter form is submitted. It prevents
+   * the default form submission behavior, constructs a filter object based on
+   * the selected parameter and filter value, and calls `fetchUsersData` to
+   * fetch and update the data table with the filtered results.
+   *
+   * @param {Event} e - The event object representing the form submission.
+   */
+  const handleFilterSubmit = (e) => {
+    e.preventDefault();
+    if (!filterValue) {
+      setFilterErrorMessage('Please enter a value to search.');
+      return;
+    }
+    setFilterErrorMessage(null);
+    onFilterSubmit({ [selectedParam]: filterValue });
+  };
+
+  /**
+   * Handles the reset action of the filter form.
+   *
+   * This function is called cuando the reset button is clicked. It clears the filter
+   * value and error message, and calls `fetchUsersData` to fetch and update the
+   * data table with the default (unfiltered) results.
+   */
+  const handleFilterReset = () => {
+    setFilterValue('');
+    setFilterErrorMessage(null);
+    onFilterSubmit({});
+  };
+
+  return (
     <Form onSubmit={handleFilterSubmit}>
       <Form.Group as={Col} controlId="formGridParam">
         <Form.RadioSet name="selectedParam" onChange={handleParamChange} value={selectedParam}>
@@ -25,7 +60,7 @@ const TableFilter = ({
         </Form.RadioSet>
       </Form.Group>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridFilter" isInvalid={!!filterErrorMessage}>
+        <Form.Group as={Col} controlId="formGridFilter" isInvalid={!!filterErrorMessage || !!error}>
           <Form.Control
             value={filterValue}
             onChange={handleFilterChange}
@@ -34,9 +69,9 @@ const TableFilter = ({
             className="form-custom-height"
             leadingElement={<Icon src={Search} className="mt-2 icon" />}
           />
-          {filterErrorMessage && (
+          {(filterErrorMessage || error) && (
             <Form.Control.Feedback type="invalid">
-              {filterErrorMessage}
+              {filterErrorMessage || error}
             </Form.Control.Feedback>
           )}
         </Form.Group>
@@ -52,21 +87,12 @@ const TableFilter = ({
         </Form.Group>
       </Form.Row>
     </Form>
-  </div>
-);
-
-TableFilter.propTypes = {
-  filterValue: PropTypes.string.isRequired,
-  selectedParam: PropTypes.string.isRequired,
-  filterErrorMessage: PropTypes.string,
-  handleFilterChange: PropTypes.func.isRequired,
-  handleParamChange: PropTypes.func.isRequired,
-  handleFilterSubmit: PropTypes.func.isRequired,
-  handleFilterReset: PropTypes.func.isRequired,
+  );
 };
 
-TableFilter.defaultProps = {
-  filterErrorMessage: null,
+TableFilter.propTypes = {
+  onFilterSubmit: PropTypes.func.isRequired,
+  error: PropTypes.string,
 };
 
 export default TableFilter;
