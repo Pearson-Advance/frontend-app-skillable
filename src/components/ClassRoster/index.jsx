@@ -2,20 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
-import {
-  Col,
-  Form,
-  Icon,
-} from '@edx/paragon';
-import { Button } from 'react-paragon-topaz';
-import { Search } from '@edx/paragon/icons';
 import DashboardLaunchButton from '../DashboardLaunchButton';
+import TableFilter from '../TableFilter';
 
 import './index.scss';
 import Table from '../Table';
 import { columns } from './columns';
 import { eventManager } from '../../helpers';
-import { SKILLABLE_URL } from '../../constants';
 
 const ENROLLMENTS_URL = `${process.env.LMS_BASE_URL}/pearson-core/api/v1/course-enrollments`;
 
@@ -104,45 +97,15 @@ const ClassRoster = ({ componentNavigationHandler }) => {
   return (
     <div>
       <DashboardLaunchButton courseId={courseId} title="Class Roster" />
-      <div className="filterWrapper">
-        <Form onSubmit={handleFilterSubmit}>
-          <Form.Group as={Col} controlId="formGridParam">
-            <Form.RadioSet name="selectedParam" onChange={handleParamChange} value={selectedParam}>
-              <div className="radio-buttons">
-                <Form.Radio value="username" className="form-radio">username</Form.Radio>
-                <Form.Radio value="email" className="form-radio">email</Form.Radio>
-              </div>
-            </Form.RadioSet>
-          </Form.Group>
-          <Form.Row>
-            <Form.Group as={Col} controlId="formGridFilter" isInvalid={!!filterErrorMessage}>
-              <Form.Control
-                value={filterValue}
-                onChange={handleFilterChange}
-                placeholder="Search student"
-                floatingLabel="Search student"
-                className="form-custom-height"
-                leadingElement={<Icon src={Search} className="mt-2 icon" />}
-              />
-              {filterErrorMessage && (
-                <Form.Control.Feedback type="invalid">
-                  {filterErrorMessage}
-                </Form.Control.Feedback>
-              )}
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridButtons">
-              <div className="filter-buttons">
-                <Button variant="primary" type="submit" disabled={!filterValue}>
-                  Apply
-                </Button>
-                <Button variant="" type="button" onClick={handleFilterReset}>
-                  Reset
-                </Button>
-              </div>
-            </Form.Group>
-          </Form.Row>
-        </Form>
-      </div>
+      <TableFilter
+        filterValue={filterValue}
+        selectedParam={selectedParam}
+        filterErrorMessage={filterErrorMessage}
+        handleFilterChange={handleFilterChange}
+        handleParamChange={handleParamChange}
+        handleFilterSubmit={handleFilterSubmit}
+        handleFilterReset={handleFilterReset}
+      />
       <Table
         isLoading={isLoading}
         data={users}
