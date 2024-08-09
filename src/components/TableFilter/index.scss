@@ -1,32 +1,30 @@
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
-
 .filterWrapper {
     margin-left: 10px;
     margin-top: 20px;
-}
+  }
 
-.radio-buttons {
+  .radio-buttons {
     display: flex;
     align-items: center;
     margin-left: -10px;
 
     .form-radio {
-        margin-right: 10px;
-        margin-top: 10px;
+      margin-right: 10px;
+      margin-top: 10px;
     }
-}
+  }
 
-.filter-buttons {
+  .filter-buttons {
     display: flex;
     align-items: center;
     margin-right: 20px;
-}
+  }
 
-.form-custom-height input {
+  .form-custom-height input {
     height: 50px;
-}
+  }
 
-.pgn__form-control-floating-label-text {
+  .pgn__form-control-floating-label-text {
     position: relative;
     top: 3px;
-}
+  }
