@@ -5,6 +5,7 @@ import { logError } from '@edx/frontend-platform/logging';
 import { Breadcrumb, Spinner } from '@edx/paragon';
 import AlertMessage from '../AlertMessage';
 import LabDetailsCard from '../LabDetailsCard';
+import LabDetailsChartCard from '../LabDetailsChartCard';
 import { formatTime } from '../../helpers';
 import './index.scss';
 import { SKILLABLE_URL } from '../../constants';
@@ -103,6 +104,16 @@ const LabDetails = ({
                 completionStatus: labDetails.CompletionStatus,
                 totalRunTime: labDetails.TotalRunTime,
                 examPassed: labDetails.exam_passed ? 'Yes' : 'No',
+              }}
+            />
+          </div>
+          <div className="col-12 col-md-5">
+            <LabDetailsChartCard
+              details={{
+                NumTasks: labDetails.NumTasks,
+                NumCompletedTasks: labDetails.NumCompletedTasks,
+                ExamMaxPossibleScore: labDetails.ExamMaxPossibleScore,
+                ExamScore: labDetails.ExamScore,
               }}
             />
           </div>
