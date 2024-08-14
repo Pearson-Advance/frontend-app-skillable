@@ -29,6 +29,15 @@ const columns = (componentNavigationHandler) => {
       ),
     },
     {
+      Header: (
+        <>
+          Number of <br /> Launches
+        </>
+      ),
+      accessor: 'lab_instances_count',
+      Cell: ({ value }) => value || 1,
+    },
+    {
       Header: 'Score',
       accessor: 'exam_score',
     },
