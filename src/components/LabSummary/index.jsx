@@ -41,6 +41,7 @@ const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
 
         labsData.push({
           lab_profile_name: laboratory.lab_profile_name,
+          lab_instances_count: laboratory.lab_instances_count,
           lab_instance_id: laboratory.lab_instance_id,
           exam_score: laboratory.exam_score ?? 'N/A',
           exam_percentage: Number.isNaN(examPercentage) ? 'N/A' : `${examPercentage}%` ?? 'N/A',
