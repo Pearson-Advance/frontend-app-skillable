@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ClassRoster from './ClassRoster';
 import LabSummary from './LabSummary';
@@ -67,6 +67,26 @@ const Main = () => {
     }
     return <ClassRoster componentNavigationHandler={switchComponents} />;
   };
+
+  useEffect(() => {
+    const sendHeight = () => {
+      // Send height to the parent window
+      const height = document.body.scrollHeight;
+      const message = { type: 'iframeHeight', height };
+      const originUrl = window.location.origin;
+      window.parent.postMessage(message, originUrl);
+    };
+
+    const observer = new MutationObserver(() => {
+      sendHeight();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [showLabDetails, showLabSummary]);
 
   return (
     <div className="main-container">
