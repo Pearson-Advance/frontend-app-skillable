@@ -81,7 +81,12 @@ LabDetailsChartCard.defaultProps = {
 };
 
 LabDetailsChartCard.propTypes = {
-  details: PropTypes.objectOf(PropTypes.string),
+  details: PropTypes.shape({
+    NumTasks: PropTypes.number,
+    NumCompletedTasks: PropTypes.number,
+    ExamMaxPossibleScore: PropTypes.number,
+    ExamScore: PropTypes.number,
+  }),
 };
 
 export default LabDetailsChartCard;

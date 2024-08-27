@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Breadcrumb } from '@edx/paragon';
@@ -8,19 +9,27 @@ import './index.scss';
 import Table from '../Table';
 import { columns } from './columns';
 import { formatUnixTimestamp } from '../../helpers';
-import { SKILLABLE_URL } from '../../constants';
+import { skillableUrl, mfeBaseUrl } from '../../constants';
 
-const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
+const LabSummary = ({
+  courseId,
+  rosterStudent,
+  setSelectedLabDetails,
+  history,
+}) => {
   const [labs, setLabs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+
+  if (!rosterStudent) {
+    return <Redirect to={`${mfeBaseUrl.replace(':courseId', courseId)}`} />;
+  }
+
   const handlePagination = (targetPage) => {
     setCurrentPage(targetPage);
     setIsLoading(true);
   };
-
-  const handleBreadcrumbClick = () => componentNavigationHandler(null);
 
   /**
 * Consumes course-enrollments API from pearson-core plugin of Devstack
@@ -62,7 +71,7 @@ const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
   };
 
   useEffect(() => {
-    fetchLabsData(`${SKILLABLE_URL}/events/api/v1/labinstancesearch`, currentPage);
+    fetchLabsData(`${skillableUrl}/events/api/v1/labinstancesearch`, currentPage);
   }, [currentPage]);
 
   return (
@@ -74,7 +83,7 @@ const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
           ]}
           activeLabel="Lab Summary"
           spacer={<span className="custom-spacer">/</span>}
-          clickHandler={handleBreadcrumbClick}
+          clickHandler={() => history.push(`${mfeBaseUrl.replace(':courseId', courseId)}`)}
         />
       </div>
       <div className="title-container">
@@ -83,7 +92,12 @@ const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
       <Table
         isLoading={isLoading}
         data={labs}
-        columns={columns(componentNavigationHandler)}
+        columns={columns({
+          setSelectedLabDetails,
+          rosterStudent,
+          courseId,
+          history,
+        })}
         emptyMessage="No Labs found."
         pageCount={pageCount}
         currentPage={currentPage}
@@ -94,8 +108,12 @@ const LabSummary = ({ rosterStudent, componentNavigationHandler }) => {
 };
 
 LabSummary.propTypes = {
-  rosterStudent: PropTypes.objectOf(PropTypes.string),
-  componentNavigationHandler: PropTypes.func,
+  courseId: PropTypes.string.isRequired,
+  rosterStudent: PropTypes.objectOf(PropTypes.string).isRequired,
+  setSelectedLabDetails: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default LabSummary;
