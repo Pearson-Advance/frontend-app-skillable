@@ -12,13 +12,12 @@ import { defaultErrorMessage } from '../../constants';
 
 const ENROLLMENTS_URL = `${process.env.LMS_BASE_URL}/pearson-core/api/v1/course-enrollments`;
 
-const ClassRoster = ({ componentNavigationHandler }) => {
+const ClassRoster = ({ courseId, setRosterStudent, history }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [filterErrorMessage, setFilterErrorMessage] = useState(null);
-  const courseId = window.location.pathname.split('/').filter(Boolean)[1];
 
   /**
   * Consumes course-enrollments API from pearson-core plugin of Devstack
@@ -79,7 +78,7 @@ const ClassRoster = ({ componentNavigationHandler }) => {
       <Table
         isLoading={isLoading}
         data={users}
-        columns={columns(componentNavigationHandler)}
+        columns={columns(courseId, setRosterStudent, history)}
         emptyMessage="No users found."
         pageCount={pageCount}
         currentPage={currentPage}
@@ -90,7 +89,11 @@ const ClassRoster = ({ componentNavigationHandler }) => {
 };
 
 ClassRoster.propTypes = {
-  componentNavigationHandler: PropTypes.func,
+  courseId: PropTypes.string.isRequired,
+  setRosterStudent: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default ClassRoster;

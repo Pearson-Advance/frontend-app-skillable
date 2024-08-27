@@ -85,7 +85,17 @@ LabDetailsCard.defaultProps = {
 };
 
 LabDetailsCard.propTypes = {
-  details: PropTypes.objectOf(PropTypes.string),
+  details: PropTypes.shape({
+    labProfileName: PropTypes.string,
+    userFirstName: PropTypes.string,
+    userLastName: PropTypes.string,
+    startTime: PropTypes.string,
+    endTime: PropTypes.string,
+    state: PropTypes.string,
+    completionStatus: PropTypes.string,
+    totalRunTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    examPassed: PropTypes.string,
+  }),
 };
 
 export default LabDetailsCard;

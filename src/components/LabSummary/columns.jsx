@@ -1,17 +1,26 @@
 import React from 'react';
 import { Hyperlink } from '@edx/paragon';
+import { mfeBaseUrl } from '../../constants';
 
-const columns = (componentNavigationHandler) => {
+const columns = ({
+  setSelectedLabDetails,
+  rosterStudent,
+  courseId,
+  history,
+}) => {
   /**
    * Displays the expected component when there is a click on the cell where this method is called
    *
    * @param {object} row - the given row from fetched data where the content would be accessed
    */
   const handleLabClick = (row) => {
-    componentNavigationHandler(null, {
+    const labDetails = {
       labInstanceId: row.original.lab_instance_id,
       labProfileName: row.original.lab_profile_name,
-    });
+      user_id: rosterStudent.user_id,
+    };
+    setSelectedLabDetails(labDetails);
+    history.push(`${mfeBaseUrl.replace(':courseId', courseId)}/lab-details/${labDetails.labInstanceId}`);
   };
 
   return [

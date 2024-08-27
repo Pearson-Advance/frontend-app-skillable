@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Breadcrumb, Spinner } from '@edx/paragon';
@@ -7,18 +8,19 @@ import AlertMessage from '../AlertMessage';
 import LabDetailsCard from '../LabDetailsCard';
 import LabDetailsChartCard from '../LabDetailsChartCard';
 import { formatTime } from '../../helpers';
+
 import './index.scss';
-import { SKILLABLE_URL } from '../../constants';
+import { skillableUrl, mfeBaseUrl } from '../../constants';
 import JsonViewer from '../JsonViewer';
 
-const LabDetails = ({
-  componentNavigationHandler,
-  rosterStudent,
-  labData: { labInstanceId, labProfileName },
-}) => {
+const LabDetails = ({ courseId, labData, history }) => {
   const [labDetails, setLabDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  if (!labData) {
+    return <Redirect to={`${mfeBaseUrl.replace(':courseId', courseId)}`} />;
+  }
 
   /**
    * Handles click events on the breadcrumb links.
@@ -28,9 +30,9 @@ const LabDetails = ({
    */
   const handleBreadcrumbClick = (event) => {
     if (event.target.id === 'goBackToClassRoster') {
-      componentNavigationHandler(null);
+      history.push(`${mfeBaseUrl.replace(':courseId', courseId)}`);
     } else if (event.target.id === 'goBackToLabSummary') {
-      componentNavigationHandler(rosterStudent);
+      history.push(`${mfeBaseUrl.replace(':courseId', courseId)}/lab-summary/${labData.user_id}`);
     }
   };
 
@@ -42,13 +44,13 @@ const LabDetails = ({
      */
     const fetchLabDetails = async () => {
       try {
-        const response = await getAuthenticatedHttpClient().post(`${SKILLABLE_URL}/events/api/v1/details/`, {
-          labinstanceid: labInstanceId,
+        const response = await getAuthenticatedHttpClient().post(`${skillableUrl}/events/api/v1/details/`, {
+          labinstanceid: labData.labInstanceId,
         });
         if (response.data) {
           setLabDetails(response.data);
         } else {
-          setErrorMessage(`No details found for this lab ${labProfileName}`);
+          setErrorMessage(`No details found for this lab ${labData.labProfileName}`);
         }
       } catch (error) {
         logError(error);
@@ -59,7 +61,7 @@ const LabDetails = ({
     };
 
     fetchLabDetails();
-  }, [labInstanceId]);
+  }, [labData.labInstanceId]);
 
   return (
     <div>
@@ -74,7 +76,7 @@ const LabDetails = ({
           clickHandler={handleBreadcrumbClick}
         />
       </div>
-      <div className="title-container"><h2>{labProfileName} Summary</h2></div>
+      <div className="title-container"><h2>{labData.labProfileName} Summary</h2></div>
       { isLoading && (
         <div className="spinner-container">
           <Spinner animation="border" className="mie-3" screenReaderText="loading" />
@@ -120,7 +122,7 @@ const LabDetails = ({
         </div>
         <div className="row">
           <div className="col-12 col-md-12">
-            <JsonViewer labName={labProfileName} labData={labDetails} />
+            <JsonViewer labName={labData.labProfileName} labData={labDetails} />
           </div>
         </div>
       </div>
@@ -130,11 +132,14 @@ const LabDetails = ({
 };
 
 LabDetails.propTypes = {
-  componentNavigationHandler: PropTypes.func.isRequired,
-  rosterStudent: PropTypes.objectOf(PropTypes.string),
+  courseId: PropTypes.string.isRequired,
   labData: PropTypes.shape({
     labInstanceId: PropTypes.number.isRequired,
     labProfileName: PropTypes.string.isRequired,
+    user_id: PropTypes.string.isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 

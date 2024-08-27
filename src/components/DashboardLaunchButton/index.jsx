@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Button } from 'react-paragon-topaz';
-
 import AlertMessage from '../AlertMessage';
-import { SKILLABLE_URL, defaultErrorMessage } from '../../constants';
+import { skillableUrl, defaultErrorMessage } from '../../constants';
 import { eventManager } from '../../helpers';
+
 import './index.scss';
 
-const COURSE_TAB_URL = `${SKILLABLE_URL}/course-tab/api/v1`;
+const COURSE_TAB_URL = `${skillableUrl}/course-tab/api/v1`;
 
 const DashboardLaunchButton = ({ courseId, title }) => {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
