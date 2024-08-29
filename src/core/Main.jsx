@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
   Route,
@@ -6,11 +7,11 @@ import {
   Redirect,
   useLocation,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import ClassRoster from './ClassRoster';
-import LabSummary from './LabSummary';
-import LabDetails from './LabDetails';
-import { mfeBaseUrl } from '../constants';
+
+import ClassRoster from 'views/ClassRoster';
+import LabSummary from 'views/LabSummary';
+import LabDetails from 'views/LabDetails';
+import { mfeBaseUrl } from 'constants';
 
 import './Main.scss';
 

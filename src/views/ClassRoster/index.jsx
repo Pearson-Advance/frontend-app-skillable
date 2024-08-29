@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
-import DashboardLaunchButton from '../DashboardLaunchButton';
-import TableFilter from '../TableFilter';
+
+import DashboardLaunchButton from 'shared/DashboardLaunchButton';
+import TableFilter from 'shared/TableFilter';
+import Table from 'shared/Table';
+import { defaultErrorMessage } from 'constants';
+import { columns } from './columns';
 
 import './index.scss';
-import Table from '../Table';
-import { columns } from './columns';
-import { defaultErrorMessage } from '../../constants';
 
 const ENROLLMENTS_URL = `${process.env.LMS_BASE_URL}/pearson-core/api/v1/course-enrollments`;
 

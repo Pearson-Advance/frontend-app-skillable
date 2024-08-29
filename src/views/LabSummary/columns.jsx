@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hyperlink } from '@edx/paragon';
-import { mfeBaseUrl } from '../../constants';
+
+import { mfeBaseUrl } from 'constants';
 
 const columns = ({
   setSelectedLabDetails,

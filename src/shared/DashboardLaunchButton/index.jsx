@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Button } from 'react-paragon-topaz';
-import AlertMessage from '../AlertMessage';
-import { skillableUrl, defaultErrorMessage } from '../../constants';
-import { eventManager } from '../../helpers';
+
+import AlertMessage from 'shared/AlertMessage';
+import { skillableUrl, defaultErrorMessage } from 'constants';
+import { eventManager } from 'helpers';
 
 import './index.scss';
 

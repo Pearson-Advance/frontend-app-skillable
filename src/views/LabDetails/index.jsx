@@ -4,14 +4,15 @@ import { Redirect } from 'react-router-dom';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Breadcrumb, Spinner } from '@edx/paragon';
-import AlertMessage from '../AlertMessage';
-import LabDetailsCard from '../LabDetailsCard';
-import LabDetailsChartCard from '../LabDetailsChartCard';
-import { formatTime } from '../../helpers';
+
+import AlertMessage from 'shared/AlertMessage';
+import LabDetailsCard from 'shared/LabDetailsCard';
+import LabDetailsChartCard from 'shared/LabDetailsChartCard';
+import JsonViewer from 'shared/JsonViewer';
+import { formatTime } from 'helpers';
+import { skillableUrl, mfeBaseUrl } from 'constants';
 
 import './index.scss';
-import { skillableUrl, mfeBaseUrl } from '../../constants';
-import JsonViewer from '../JsonViewer';
 
 const LabDetails = ({ courseId, labData, history }) => {
   const [labDetails, setLabDetails] = useState(null);
