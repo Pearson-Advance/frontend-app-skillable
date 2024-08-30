@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from '@edx/paragon';
-import './index.scss';
 import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
+
+import './index.scss';
 
 const LabDetailsChartCard = ({ details }) => {
   const {

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import JSONEditor from 'jsoneditor';
 import {
   array,
   bool,
@@ -8,8 +9,8 @@ import {
   oneOfType,
   PropTypes,
 } from 'prop-types';
-import JSONEditor from 'jsoneditor';
 import 'jsoneditor/dist/jsoneditor.css';
+
 import './index.scss';
 
 const JsonViewer = ({ labName, labData }) => {

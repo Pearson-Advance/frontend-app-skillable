@@ -5,11 +5,12 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Breadcrumb } from '@edx/paragon';
 
-import './index.scss';
-import Table from '../Table';
+import { formatUnixTimestamp } from 'helpers';
+import { skillableUrl, mfeBaseUrl } from 'constants';
+import Table from 'shared/Table';
 import { columns } from './columns';
-import { formatUnixTimestamp } from '../../helpers';
-import { skillableUrl, mfeBaseUrl } from '../../constants';
+
+import './index.scss';
 
 const LabSummary = ({
   courseId,

@@ -8,7 +8,7 @@ import {
 import { AppProvider, ErrorPage } from '@edx/frontend-platform/react';
 import ReactDOM from 'react-dom';
 
-import Main from './components/Main';
+import Main from './core/Main';
 import './index.scss';
 
 subscribe(APP_READY, () => {
