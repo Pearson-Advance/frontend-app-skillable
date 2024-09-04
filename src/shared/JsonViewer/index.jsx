@@ -24,6 +24,7 @@ const JsonViewer = ({ labName, labData }) => {
     };
     editorRef.current = new JSONEditor(containerRef.current, options);
     editorRef.current.set(labData);
+    editorRef.current.collapseAll();
 
     return () => {
       if (editorRef.current) {
