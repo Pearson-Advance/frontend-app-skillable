@@ -5,9 +5,9 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
 import { Breadcrumb } from '@edx/paragon';
 
-import { formatUnixTimestamp } from 'helpers';
 import { skillableUrl, mfeBaseUrl } from 'constants';
 import Table from 'shared/Table';
+import { formatUnixTimestamp } from '../../helpers';
 import { columns } from './columns';
 
 import './index.scss';
@@ -110,7 +110,7 @@ const LabSummary = ({
 
 LabSummary.propTypes = {
   courseId: PropTypes.string.isRequired,
-  rosterStudent: PropTypes.objectOf(PropTypes.string).isRequired,
+  rosterStudent: PropTypes.objectOf(PropTypes.string),
   setSelectedLabDetails: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
