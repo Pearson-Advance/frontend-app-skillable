@@ -1,7 +1,6 @@
 import { eventManager, formatUnixTimestamp, formatTime } from '../index';
 
 describe('Helper Functions', () => {
-
   describe('formatUnixTimestamp', () => {
     it('formats a valid UNIX timestamp correctly', () => {
       const timestamp = 1672531199; // Corresponds to 12/31/2022 11:59 PM UTC
