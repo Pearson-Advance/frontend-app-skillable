@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { columns } from '../columns';
 import '@testing-library/jest-dom';
 
-// Mock dependencies
 jest.mock('@edx/paragon', () => ({
   // eslint-disable-next-line react/prop-types
   Hyperlink: ({ destination, onClick, children }) => (
@@ -13,7 +12,6 @@ jest.mock('@edx/paragon', () => ({
   ),
 }));
 
-// Mock the mfeBaseUrl constant
 jest.mock('constants', () => ({
   mfeBaseUrl: '/base-url/:courseId',
 }));
@@ -40,7 +38,6 @@ describe('Columns Component', () => {
       },
     };
 
-    // Render the cell component
     const CellComponent = columnDefinitions[0].Cell;
     render(<CellComponent row={mockRow} />);
 
@@ -48,7 +45,6 @@ describe('Columns Component', () => {
     expect(hyperlink).toBeInTheDocument();
     fireEvent.click(hyperlink);
 
-    // Verify that handleUsernameClick is called correctly
     expect(mockSetRosterStudent).toHaveBeenCalledWith({
       user_id: 'anon_id_123',
       username: 'testuser',

@@ -251,7 +251,7 @@ describe('LabSummary Component', () => {
       if (laboratory.exam_score !== null && laboratory.exam_max_possible_score !== null) {
         expect(examPercentage).toBe((laboratory.exam_score / laboratory.exam_max_possible_score) * 10);
       } else {
-        expect(examPercentage).toBeNaN(); // O se puede cambiar a otro tipo de validación si espera 'N/A'
+        expect(examPercentage).toBeNaN();
       }
     });
   });
@@ -264,7 +264,7 @@ describe('LabSummary Component', () => {
     };
 
     const examPercentage = (laboratory.exam_score / laboratory.exam_max_possible_score) * 10;
-    expect(examPercentage).toBe(8); // Ejemplo de valor esperado
+    expect(examPercentage).toBe(8);
   });
 
   it('returns "N/A" when exam_score or exam_max_possible_score is invalid', () => {
@@ -275,7 +275,7 @@ describe('LabSummary Component', () => {
     };
 
     const examPercentage = (laboratory.exam_score / laboratory.exam_max_possible_score) * 10;
-    expect(Number.isNaN(examPercentage)).toBe(true); // Cambia según el comportamiento esperado
+    expect(Number.isNaN(examPercentage)).toBe(true);
   });
 
   it('handles pagination correctly and updates currentPage and isLoading', async () => {
@@ -301,17 +301,15 @@ describe('LabSummary Component', () => {
     });
   });
 
-  // Test for passedValue and examPercentage
   it('calculates passedValue and examPercentage correctly', () => {
     const laboratory = {
-      exam_passed: true, // Case for 'Yes'
+      exam_passed: true,
       exam_score: 80,
       exam_max_possible_score: 100,
     };
 
     const labsData = [];
 
-    // Manually call the calculation logic
     const passedValue = { true: 'Yes', false: 'No' }[laboratory.exam_passed] ?? 'N/A';
     const examPercentage = (laboratory.exam_score / laboratory.exam_max_possible_score) * 10;
 
@@ -326,8 +324,7 @@ describe('LabSummary Component', () => {
       end_time: formatUnixTimestamp(laboratory.end_time),
     });
 
-    // Verifica que se calculen los valores correctos
     expect(passedValue).toBe('Yes');
-    expect(examPercentage).toBe(8); // Asegúrate de que el valor de porcentaje sea el esperado
+    expect(examPercentage).toBe(8);
   });
 });

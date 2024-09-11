@@ -1,15 +1,14 @@
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Main from '../Main';
 import '@testing-library/jest-dom';
 
-// Mock the child components
+import Main from '../Main';
+
 jest.mock('../../views/ClassRoster', () => () => <div>Mocked ClassRoster Component</div>);
 jest.mock('../../views/LabSummary', () => () => <div>Mocked LabSummary Component</div>);
 jest.mock('../../views/LabDetails', () => () => <div>Mocked LabDetails Component</div>);
 
-// Mock constants
 jest.mock('constants', () => ({
   mfeBaseUrl: '/base-url',
 }));

@@ -12,10 +12,10 @@ import {
   BrowserRouter as Router,
   MemoryRouter,
 } from 'react-router-dom';
-import LabDetails from '../index';
 import '@testing-library/jest-dom';
 
-// Mock necessary components
+import LabDetails from '../index';
+
 jest.mock('../../../shared/AlertMessage', () => () => <div>Mocked AlertMessage</div>);
 jest.mock('../../../shared/LabDetailsCard', () => () => <div>Mocked LabDetailsCard</div>);
 jest.mock('../../../shared/LabDetailsChartCard', () => () => <div>Mocked LabDetailsChartCard</div>);
@@ -70,7 +70,6 @@ describe('LabDetails Component', () => {
         </MemoryRouter>,
       );
 
-      // Check for Redirect component being rendered
       expect(container.innerHTML).toContain('');
     });
   });
@@ -152,7 +151,6 @@ describe('LabDetails Component', () => {
         </Router>,
       );
 
-      // Verify that the spinner is displayed
       expect(screen.getByText('loading')).toBeInTheDocument();
     });
   });

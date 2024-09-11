@@ -108,7 +108,7 @@ describe('Columns Component for LabSummary', () => {
     const PassedCell = columnDefinitio[4].Cell;
     const mockRow = {
       original: {
-        exam_passed: '', // anything different from 'yes' or 'no'
+        exam_passed: '',
       },
     };
     render(<PassedCell row={mockRow} />);
