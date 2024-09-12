@@ -10,8 +10,9 @@ import {
 } from '@testing-library/react';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logError } from '@edx/frontend-platform/logging';
-import LabSummary from '../index';
 import '@testing-library/jest-dom';
+
+import LabSummary from '../index';
 import { columns } from '../columns';
 import { formatUnixTimestamp } from '../../../helpers';
 
