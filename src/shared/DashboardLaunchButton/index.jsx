@@ -6,7 +6,7 @@ import { Button } from 'react-paragon-topaz';
 
 import AlertMessage from 'shared/AlertMessage';
 import { skillableUrl, defaultErrorMessage } from 'constants';
-import { eventManager } from 'helpers';
+import { eventManager } from '../../helpers';
 
 import './index.scss';
 
