@@ -66,8 +66,8 @@ const columns = ({
           'n/a': 'status-na',
         };
         const examPassed = row.original.exam_passed;
-
-        return <span className={classStyles[examPassed.toLowerCase() || 'n/a']}>{examPassed}</span>;
+        const examPassedLowerCase = examPassed ? examPassed.toLowerCase() : 'n/a';
+        return <span className={classStyles[examPassedLowerCase]}>{examPassed ?? 'N/A'}</span>;
       },
     },
     {

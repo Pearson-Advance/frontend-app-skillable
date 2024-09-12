@@ -5,19 +5,18 @@
  * @returns {string} - String with Datetime in human readable format
  */
 const formatUnixTimestamp = (timeStamp) => {
-  if (!timeStamp && typeof typestamp !== 'string') {
+  if (!timeStamp || Number.isNaN(Number(timeStamp))) {
     return 'N/A';
   }
 
   const date = new Date(timeStamp * 1000);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const year = date.getFullYear();
-
-  let hours = date.getHours();
-  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const year = date.getUTCFullYear();
+  let hours = date.getUTCHours();
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
   const amPm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12 || 12; // Convert 0 to 12
+  hours = hours % 12 || 12;
 
   return `${month}/${day}/${year} ${hours}:${minutes} ${amPm}`;
 };
@@ -52,6 +51,10 @@ const eventManager = (callback) => {
  */
 const formatTime = (time) => {
   if (!time || typeof time !== 'string') {
+    return 'N/A';
+  }
+  const match = time.match(/\d+/);
+  if (!match) {
     return 'N/A';
   }
   return new Date(parseInt(time.match(/\d+/)[0], 10))

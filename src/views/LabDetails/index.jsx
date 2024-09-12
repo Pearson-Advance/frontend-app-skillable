@@ -9,8 +9,8 @@ import AlertMessage from 'shared/AlertMessage';
 import LabDetailsCard from 'shared/LabDetailsCard';
 import LabDetailsChartCard from 'shared/LabDetailsChartCard';
 import JsonViewer from 'shared/JsonViewer';
-import { formatTime } from 'helpers';
 import { skillableUrl, mfeBaseUrl } from 'constants';
+import { formatTime } from '../../helpers';
 
 import './index.scss';
 
@@ -138,7 +138,7 @@ LabDetails.propTypes = {
     labInstanceId: PropTypes.number.isRequired,
     labProfileName: PropTypes.string.isRequired,
     user_id: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
