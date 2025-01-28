@@ -13,8 +13,6 @@ const columns = (courseId, setRosterStudent, labType, history) => {
     const student = { user_id: row.original.anonymous_user_id, username: row.original.user, courseId };
     setRosterStudent(student);
 
-    console.log('Student user_id:', student.user_id);
-
     if (labType === 'skillable') {
       history.push(`${mfeBaseUrl.replace(':courseId', courseId)}/lab-summary/${student.user_id}`);
     } else if (labType === 'xtreme_labs') {

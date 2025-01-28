@@ -11,6 +11,7 @@ import {
 import ClassRoster from 'common/ClassRoster';
 import LabSummary from 'views/LabSummary';
 import LabDetails from 'views/LabDetails';
+// eslint-disable-next-line import/no-unresolved
 import StudentUsageReport from 'xtremeLabsViews/StudentUsageReport';
 import { mfeBaseUrl } from 'constants';
 

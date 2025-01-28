@@ -1,10 +1,10 @@
+/* eslint-disable arrow-body-style */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
 // Temporary module to have the prepared view
 const StudentUsageReport = ({ studentId, courseId }) => {
-  console.log('Received studentId:', studentId); // DEBUG
-  console.log('Received courseId:', courseId); // DEBUG
   return (
     <div>
       <h1>Student Usage Report</h1>
@@ -17,7 +17,6 @@ const StudentUsageReport = ({ studentId, courseId }) => {
     </div>
   );
 };
-
 StudentUsageReport.propTypes = {
   studentId: PropTypes.string.isRequired,
   courseId: PropTypes.string.isRequired,

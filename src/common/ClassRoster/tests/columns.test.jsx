@@ -52,8 +52,6 @@ describe('Columns Component', () => {
       courseId: mockCourseId,
     });
 
-    console.log('Actual pushed URL:', mockHistory.push.mock.calls[0][0]);
-
     expect(mockHistory.push).toHaveBeenCalledWith(
       '/base-url/lab-summary/anon_id_123',
     );

@@ -37,17 +37,14 @@ const ClassRoster = ({ courseId, setRosterStudent, history }) => {
         if (enabledTrainingLab === 'skillable' || enabledTrainingLab === 'xtreme_labs') {
           setLabType(enabledTrainingLab);
         } else {
-          console.error('Unexpected response:', response.data);
           setLabType(null);
         }
       }
     } catch (error) {
       if (error.response?.status === 400) {
-        console.error('Error: There must be exactly one enabled plugin.');
         setLabType(null);
       } else {
         logError(error);
-        console.error('Error fetching training lab configuration:', error.message || error);
       }
     }
   };
