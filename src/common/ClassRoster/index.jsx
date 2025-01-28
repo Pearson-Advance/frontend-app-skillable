@@ -12,6 +12,7 @@ import { columns } from './columns';
 import './index.scss';
 
 const ENROLLMENTS_URL = `${process.env.LMS_BASE_URL}/pearson-core/api/v1/course-enrollments`;
+const TRAINING_LAB_URL = `${process.env.LMS_BASE_URL}/skillable_plugin/course-tab/api/v1/get-enabled-training-lab/`;
 
 const ClassRoster = ({ courseId, setRosterStudent, history }) => {
   const [users, setUsers] = useState([]);
@@ -19,6 +20,37 @@ const ClassRoster = ({ courseId, setRosterStudent, history }) => {
   const [pageCount, setPageCount] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [filterErrorMessage, setFilterErrorMessage] = useState(null);
+  const [labType, setLabType] = useState(null);
+
+  /**
+   * Fetches the training lab configuration to decide the destination.
+   */
+  const fetchTrainingLabConfig = async () => {
+    try {
+      const response = await getAuthenticatedHttpClient().post(TRAINING_LAB_URL, {
+        class_id: courseId,
+      });
+
+      if (response.status === 200) {
+        const { enabled_training_lab: enabledTrainingLab } = response.data;
+
+        if (enabledTrainingLab === 'skillable' || enabledTrainingLab === 'xtreme_labs') {
+          setLabType(enabledTrainingLab);
+        } else {
+          console.error('Unexpected response:', response.data);
+          setLabType(null);
+        }
+      }
+    } catch (error) {
+      if (error.response?.status === 400) {
+        console.error('Error: There must be exactly one enabled plugin.');
+        setLabType(null);
+      } else {
+        logError(error);
+        console.error('Error fetching training lab configuration:', error.message || error);
+      }
+    }
+  };
 
   /**
   * Consumes course-enrollments API from pearson-core plugin of Devstack
@@ -68,18 +100,21 @@ const ClassRoster = ({ courseId, setRosterStudent, history }) => {
 
   useEffect(() => {
     fetchUsersData();
+    fetchTrainingLabConfig();
   }, [currentPage]);
 
   return (
     <div>
-      <DashboardLaunchButton courseId={courseId} title="Class Roster" />
+      {labType !== 'xtreme_labs' && (
+        <DashboardLaunchButton courseId={courseId} title="Class Roster" />
+      )}
       <div className="filterWrapper">
         <TableFilter onFilterSubmit={handleFilterSubmit} error={filterErrorMessage} />
       </div>
       <Table
         isLoading={isLoading}
         data={users}
-        columns={columns(courseId, setRosterStudent, history)}
+        columns={columns(courseId, setRosterStudent, labType, history)}
         emptyMessage="No users found."
         pageCount={pageCount}
         currentPage={currentPage}

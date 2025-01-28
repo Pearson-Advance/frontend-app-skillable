@@ -3,7 +3,7 @@ import { Hyperlink } from '@edx/paragon';
 
 import { mfeBaseUrl } from 'constants';
 
-const columns = (courseId, setRosterStudent, history) => {
+const columns = (courseId, setRosterStudent, labType, history) => {
   /**
    * Displays the expected component when there is a click on the cell where this method is called
    *
@@ -12,7 +12,14 @@ const columns = (courseId, setRosterStudent, history) => {
   const handleUsernameClick = (row) => {
     const student = { user_id: row.original.anonymous_user_id, username: row.original.user, courseId };
     setRosterStudent(student);
-    history.push(`${mfeBaseUrl.replace(':courseId', courseId)}/lab-summary/${student.user_id}`);
+
+    console.log('Student user_id:', student.user_id);
+
+    if (labType === 'skillable') {
+      history.push(`${mfeBaseUrl.replace(':courseId', courseId)}/lab-summary/${student.user_id}`);
+    } else if (labType === 'xtreme_labs') {
+      history.push(`${mfeBaseUrl.replace(':courseId', courseId)}/student-usage-report/${student.user_id}`);
+    }
   };
 
   return [

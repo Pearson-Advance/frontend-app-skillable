@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 import Main from '../Main';
 
-jest.mock('../../views/ClassRoster', () => () => <div>Mocked ClassRoster Component</div>);
+jest.mock('../../common/ClassRoster', () => () => <div>Mocked ClassRoster Component</div>);
 jest.mock('../../views/LabSummary', () => () => <div>Mocked LabSummary Component</div>);
 jest.mock('../../views/LabDetails', () => () => <div>Mocked LabDetails Component</div>);
 
