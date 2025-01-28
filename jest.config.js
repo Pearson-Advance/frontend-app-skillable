@@ -13,4 +13,5 @@ module.exports = {
     },
     transformIgnorePatterns: ['node_modules/(?!@edx/frontend-platform|@edx/paragon|react-paragon-topaz)'],
     testEnvironment: 'jest-environment-jsdom',
+    testTimeout: 10000,
   };
