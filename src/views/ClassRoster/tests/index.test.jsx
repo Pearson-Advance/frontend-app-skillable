@@ -22,6 +22,12 @@ jest.mock('@edx/frontend-platform/auth', () => ({
   })),
 }));
 
+jest.mock('@edx/frontend-platform', () => ({
+  getConfig: jest.fn().mockReturnValue({
+    COURSE_OPERATIONS_API_V2_BASE_URL: 'http://localhost:18000/pearson_course_operation/api/v1',
+  }),
+}));
+
 jest.mock('@edx/frontend-platform/logging', () => ({
   logError: jest.fn(),
 }));

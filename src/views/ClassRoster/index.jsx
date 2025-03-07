@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+import { getConfig } from '@edx/frontend-platform';
 import { logError } from '@edx/frontend-platform/logging';
 
 import DashboardLaunchButton from 'shared/DashboardLaunchButton';
@@ -28,11 +29,26 @@ const ClassRoster = ({ courseId, setRosterStudent, history }) => {
   const fetchUsersData = async (filter = {}) => {
     setIsLoading(true);
     try {
-      const response = await getAuthenticatedHttpClient().post(`${ENROLLMENTS_URL}?page=${currentPage}`, {
-        course_id: courseId,
-        ...filter,
-      });
-      const result = await response.data;
+      let response;
+
+      if (courseId.startsWith('course-v1:')) { // Request from course
+        response = await getAuthenticatedHttpClient().post(`${ENROLLMENTS_URL}?page=${currentPage}`, {
+          course_id: courseId,
+          ...filter,
+        });
+      } else if (courseId.startsWith('ccx-v1:')) { // Request from class
+        const params = {
+          class_id: courseId,
+          page: currentPage,
+          ...filter,
+        };
+        response = await getAuthenticatedHttpClient().get(
+          `${getConfig().COURSE_OPERATIONS_API_V2_BASE_URL}/students/`,
+          { params },
+        );
+      }
+
+      const result = response.data;
       setUsers(result.results);
       if (!result.prev) {
         setPageCount(result.next ? Math.ceil(result.count / result.results.length) : 1);
