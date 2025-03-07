@@ -13,14 +13,15 @@ jest.mock('@edx/paragon', () => ({
 }));
 
 jest.mock('constants', () => ({
-  mfeBaseUrl: '/base-url/:courseId',
+  mfeBaseUrl: '/base-url',
 }));
 
 describe('Columns Component', () => {
   const mockSetRosterStudent = jest.fn();
   const mockHistory = { push: jest.fn() };
   const mockCourseId = 'course-v1:edX+DemoX+Demo_Course';
-  const columnDefinitions = columns(mockCourseId, mockSetRosterStudent, mockHistory);
+  const mockLabType = 'skillable';
+  const columnDefinitions = columns(mockCourseId, mockSetRosterStudent, mockLabType, mockHistory);
 
   it('renders columns correctly', () => {
     expect(columnDefinitions[0].Header).toBe('Username');
@@ -50,8 +51,9 @@ describe('Columns Component', () => {
       username: 'testuser',
       courseId: mockCourseId,
     });
+
     expect(mockHistory.push).toHaveBeenCalledWith(
-      `/base-url/${mockCourseId}/lab-summary/anon_id_123`,
+      '/base-url/lab-summary/anon_id_123',
     );
   });
 });

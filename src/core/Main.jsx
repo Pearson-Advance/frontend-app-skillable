@@ -8,9 +8,11 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import ClassRoster from 'views/ClassRoster';
+import ClassRoster from 'common/ClassRoster';
 import LabSummary from 'views/LabSummary';
 import LabDetails from 'views/LabDetails';
+// eslint-disable-next-line import/no-unresolved
+import StudentUsageReport from 'xtremeLabsViews/StudentUsageReport';
 import { mfeBaseUrl } from 'constants';
 
 import './Main.scss';
@@ -43,6 +45,7 @@ const Main = () => {
     <Router>
       <div className="main-container">
         <Switch>
+          {/* Common Routes */}
           <Route
             exact
             path={`${mfeBaseUrl}`}
@@ -54,6 +57,7 @@ const Main = () => {
               />
             )}
           />
+          {/* Skillable Routes */}
           <Route
             path={`${mfeBaseUrl}/lab-summary/:studentId`}
             render={(props) => (
@@ -73,6 +77,16 @@ const Main = () => {
                 courseId={props.match.params.courseId}
                 labData={selectedLabDetails}
                 rosterStudent={rosterStudent}
+              />
+            )}
+          />
+          {/* Xtreme Labs Routes */}
+          <Route
+            path={`${mfeBaseUrl}/student-usage-report/:studentId`}
+            render={({ match }) => (
+              <StudentUsageReport
+                studentId={match.params.studentId}
+                courseId={match.params.courseId}
               />
             )}
           />
