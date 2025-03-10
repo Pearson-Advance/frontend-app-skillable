@@ -10,7 +10,7 @@ const columns = (courseId, setRosterStudent, history) => {
    * @param {object} row - the given row from fetched data where the content would be accessed
    */
   const handleUsernameClick = (row) => {
-    const student = { user_id: row.original.anonymous_user_id, username: row.original.user, courseId };
+    const student = { user_id: row.original.learner_anonymous_id, username: row.original.learner_name, courseId };
     setRosterStudent(student);
     history.push(`${mfeBaseUrl.replace(':courseId', courseId)}/lab-summary/${student.user_id}`);
   };
@@ -18,20 +18,20 @@ const columns = (courseId, setRosterStudent, history) => {
   return [
     {
       Header: 'Username',
-      accessor: 'user',
+      accessor: 'learner_name',
       /* eslint-disable react/prop-types */
       Cell: ({ row }) => (
         <Hyperlink
           destination="#"
           onClick={() => handleUsernameClick(row)}
         >
-          {row.original.user}
+          {row.original.learner_name}
         </Hyperlink>
       ),
     },
     {
       Header: 'Email',
-      accessor: 'email',
+      accessor: 'learner_email',
     },
   ];
 };

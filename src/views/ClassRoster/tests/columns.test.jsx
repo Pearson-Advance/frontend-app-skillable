@@ -25,16 +25,16 @@ describe('Columns Component', () => {
   it('renders columns correctly', () => {
     expect(columnDefinitions[0].Header).toBe('Username');
     expect(columnDefinitions[1].Header).toBe('Email');
-    expect(columnDefinitions[0].accessor).toBe('user');
-    expect(columnDefinitions[1].accessor).toBe('email');
+    expect(columnDefinitions[0].accessor).toBe('learner_name');
+    expect(columnDefinitions[1].accessor).toBe('learner_email');
   });
 
   it('renders a hyperlink and calls handleUsernameClick on click', () => {
     const mockRow = {
       original: {
-        user: 'testuser',
-        email: 'testuser@example.com',
-        anonymous_user_id: 'anon_id_123',
+        learner_name: 'testuser',
+        learner_email: 'testuser@example.com',
+        learner_anonymous_id: 'anon_id_123',
       },
     };
 
