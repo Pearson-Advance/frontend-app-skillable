@@ -10,7 +10,7 @@ import { Search } from '@edx/paragon/icons';
 
 const TableFilter = ({ onFilterSubmit, error }) => {
   const [filterValue, setFilterValue] = useState('');
-  const [selectedParam, setSelectedParam] = useState('username');
+  const [selectedParam, setSelectedParam] = useState('learner_name');
   const [filterErrorMessage, setFilterErrorMessage] = useState(null);
 
   const handleFilterChange = (e) => setFilterValue(e.target.value);
@@ -54,8 +54,8 @@ const TableFilter = ({ onFilterSubmit, error }) => {
       <Form.Group as={Col} controlId="formGridParam">
         <Form.RadioSet name="selectedParam" onChange={handleParamChange} value={selectedParam}>
           <div className="radio-buttons">
-            <Form.Radio value="username" className="form-radio">username</Form.Radio>
-            <Form.Radio value="email" className="form-radio">email</Form.Radio>
+            <Form.Radio value="learner_name" className="form-radio">Name</Form.Radio>
+            <Form.Radio value="learner_email" className="form-radio">Email</Form.Radio>
           </div>
         </Form.RadioSet>
       </Form.Group>

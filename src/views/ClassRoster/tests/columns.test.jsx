@@ -23,7 +23,7 @@ describe('Columns Component', () => {
   const columnDefinitions = columns(mockCourseId, mockSetRosterStudent, mockHistory);
 
   it('renders columns correctly', () => {
-    expect(columnDefinitions[0].Header).toBe('Username');
+    expect(columnDefinitions[0].Header).toBe('Name');
     expect(columnDefinitions[1].Header).toBe('Email');
     expect(columnDefinitions[0].accessor).toBe('learner_name');
     expect(columnDefinitions[1].accessor).toBe('learner_email');

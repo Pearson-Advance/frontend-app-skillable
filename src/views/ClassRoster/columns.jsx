@@ -17,7 +17,7 @@ const columns = (courseId, setRosterStudent, history) => {
 
   return [
     {
-      Header: 'Username',
+      Header: 'Name',
       accessor: 'learner_name',
       /* eslint-disable react/prop-types */
       Cell: ({ row }) => (

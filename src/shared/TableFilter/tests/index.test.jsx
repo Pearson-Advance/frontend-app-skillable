@@ -14,8 +14,8 @@ describe('TableFilter Component', () => {
     render(<TableFilter onFilterSubmit={mockOnFilterSubmit} />);
 
     expect(screen.getByPlaceholderText('Search student')).toBeInTheDocument();
-    expect(screen.getByText('username')).toBeInTheDocument();
-    expect(screen.getByText('email')).toBeInTheDocument();
+    expect(screen.getByText('Name')).toBeInTheDocument();
+    expect(screen.getByText('Email')).toBeInTheDocument();
     expect(screen.getByText('Apply')).toBeDisabled();
     expect(screen.getByText('Reset')).toBeInTheDocument();
   });
@@ -38,7 +38,7 @@ describe('TableFilter Component', () => {
     fireEvent.change(input, { target: { value: 'john' } });
     fireEvent.click(submitButton);
 
-    expect(mockOnFilterSubmit).toHaveBeenCalledWith({ username: 'john' });
+    expect(mockOnFilterSubmit).toHaveBeenCalledWith({ learner_name: 'john' });
   });
 
   it('resets the filter value and error message when the reset button is clicked', () => {
@@ -63,7 +63,7 @@ describe('TableFilter Component', () => {
 
   it('changes the selected parameter correctly', () => {
     render(<TableFilter onFilterSubmit={mockOnFilterSubmit} />);
-    const emailRadio = screen.getByLabelText('email');
+    const emailRadio = screen.getByLabelText('Email');
 
     fireEvent.click(emailRadio);
     const input = screen.getByPlaceholderText('Search student');
@@ -72,6 +72,6 @@ describe('TableFilter Component', () => {
     const submitButton = screen.getByText('Apply');
     fireEvent.click(submitButton);
 
-    expect(mockOnFilterSubmit).toHaveBeenCalledWith({ email: 'john@example.com' });
+    expect(mockOnFilterSubmit).toHaveBeenCalledWith({ learner_email: 'john@example.com' });
   });
 });
