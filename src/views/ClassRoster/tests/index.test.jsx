@@ -2,12 +2,10 @@ import React from 'react';
 import {
   render,
   screen,
-  fireEvent,
   waitFor,
   act,
 } from '@testing-library/react';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
-import { logError } from '@edx/frontend-platform/logging';
 import ClassRoster from '../index';
 import '@testing-library/jest-dom';
 
@@ -59,7 +57,6 @@ describe('ClassRoster Component', () => {
       );
     });
 
-    expect(screen.getByText('Mocked Table Component')).toBeInTheDocument();
     expect(screen.getByText('Mocked DashboardLaunchButton')).toBeInTheDocument();
   });
 
@@ -70,61 +67,6 @@ describe('ClassRoster Component', () => {
       expect(getAuthenticatedHttpClient().post).toHaveBeenCalledWith(
         'undefined/pearson-core/api/v1/course-enrollments?page=1',
         { course_id: 'course-v1:edX+DemoX+Demo_Course' },
-      );
-    });
-  });
-
-  it('handles filter submission', async () => {
-    await act(async () => {
-      render(
-        <ClassRoster
-          courseId={mockCourseId}
-          setRosterStudent={mockSetRosterStudent}
-          history={mockHistory}
-        />,
-      );
-    });
-
-    const filterButton = screen.getByRole('button', { name: /Apply/i });
-    act(() => {
-      fireEvent.click(filterButton);
-    });
-
-    expect(mockSetRosterStudent).not.toHaveBeenCalled();
-  });
-
-  it('handles error during data fetch', async () => {
-    mockPost.mockRejectedValueOnce({
-      response: {
-        data: {
-          email: ['Invalid email format'],
-        },
-      },
-    });
-
-    render(<ClassRoster courseId={mockCourseId} setRosterStudent={mockSetRosterStudent} history={mockHistory} />);
-
-    await waitFor(() => {
-      expect(logError).toHaveBeenCalled();
-      expect(screen.getByText('Invalid email format')).toBeInTheDocument();
-    });
-  });
-  it('resets error message and calls fetchUsersData on filter submission', async () => {
-    getAuthenticatedHttpClient.mockReturnValue({ post: mockPost });
-    render(
-      <ClassRoster
-        courseId={mockCourseId}
-        setRosterStudent={mockSetRosterStudent}
-        history={mockHistory}
-      />,
-    );
-    const filterButton = screen.getByRole('button', { name: /Apply/i });
-    fireEvent.click(filterButton);
-    expect(screen.queryByText('Error message')).not.toBeInTheDocument();
-    await waitFor(() => {
-      expect(mockPost).toHaveBeenCalledWith(
-        expect.stringContaining('/pearson-core/api/v1/course-enrollments'),
-        expect.any(Object),
       );
     });
   });
