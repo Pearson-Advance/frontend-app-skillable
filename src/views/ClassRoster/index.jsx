@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
@@ -5,10 +6,7 @@ import { getConfig } from '@edx/frontend-platform';
 import { logError } from '@edx/frontend-platform/logging';
 
 import DashboardLaunchButton from 'shared/DashboardLaunchButton';
-import TableFilter from 'shared/TableFilter';
-import Table from 'shared/Table';
 import { defaultErrorMessage } from 'constants';
-import { columns } from './columns';
 
 import './index.scss';
 
@@ -77,30 +75,13 @@ const ClassRoster = ({ courseId, setRosterStudent, history }) => {
    *                          (e.g., 'username' or 'email') and the value is
    *                          the user's input.
    */
-  const handleFilterSubmit = (filter) => {
-    setFilterErrorMessage(null);
-    fetchUsersData(filter);
-  };
-
   useEffect(() => {
     fetchUsersData();
   }, [currentPage]);
 
   return (
     <div>
-      <DashboardLaunchButton courseId={courseId} title="Class Roster" />
-      <div className="filterWrapper">
-        <TableFilter onFilterSubmit={handleFilterSubmit} error={filterErrorMessage} />
-      </div>
-      <Table
-        isLoading={isLoading}
-        data={users}
-        columns={columns(courseId, setRosterStudent, history)}
-        emptyMessage="No users found."
-        pageCount={pageCount}
-        currentPage={currentPage}
-        handlePagination={setCurrentPage}
-      />
+      <DashboardLaunchButton courseId={courseId} title="Instructor Launch" />
     </div>
   );
 };
